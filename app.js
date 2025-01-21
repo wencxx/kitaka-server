@@ -18,7 +18,7 @@ app.get('/get-passengers', async (req, res) => {
       const data = snapshot.docs.map(doc => doc.data());
       res.status(200).json(data);
     } catch (error) {
-      res.status(500).send('Error retrieving data');
+      res.status(500).send(error);
     }
 });
 
