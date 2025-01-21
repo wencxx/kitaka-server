@@ -6,20 +6,20 @@ const Passengers = require('./models/Passengers') // Assuming Passengers is a Mo
 
 const app = express()
 
-app.use(cors())
-app.use(express.json())
+const corsOptions = {
+    origin: '*', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+    allowedHeaders: ['Content-Type', 'Authorization'], 
+};
 
-// Sample location POST endpoint (no change)
-app.post('/location', (req, res) => {
-    console.log(req.body)
-    res.send(req.body)
-})
+app.use(cors())
+app.use(express.json(corsOptions))
 
 // Get all passengers using Mongoose
 app.get('/get-passengers', async (req, res) => {
     try {
         const passengers = await Passengers.find();
-        res.status(200).json(passengers);
+        res.status(200).send(passengers);
     } catch (error) {
         res.status(500).send(error);
     }
